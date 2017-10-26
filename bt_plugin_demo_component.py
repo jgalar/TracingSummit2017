@@ -4,16 +4,11 @@ from termcolor import colored
 
 
 @bt2.plugin_component_class
-class backtracer(bt2._UserSinkComponent):
+class stacktrace(bt2._UserSinkComponent):
     def __init__(self, params):
         self._indent = 0
         self._add_input_port('my_input_port')
         self._last_timestamp = None
-
-    def _port_connected(self, port, other_port):
-        self._iterator = port.connection.create_notification_iterator(
-            [bt2.EventNotification])
-        return True
 
     def _on_entry(self, notification):
         self._indent += 1
@@ -42,6 +37,11 @@ class backtracer(bt2._UserSinkComponent):
 
         print(time_ui + '  ' * self._indent, end='')
         self._last_timestamp = timestamp_ns
+
+    def _port_connected(self, port, other_port):
+        self._iterator = port.connection.create_notification_iterator(
+            [bt2.EventNotification])
+        return True
 
     def _consume(self):
         notification = next(self._iterator)
