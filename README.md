@@ -8,11 +8,11 @@ component is imaginatively named `sink.demo.stacktrace`.
 
 ## Using `sink.demo.stacktrace`
 
-### Building software
+### Building the software
 
 In order to retrieve the function names from the addresses recorded in the
 LTTng trace, the binary must contain DWARF debug information and the
-compiler must instrument the various functions entry and exit points.
+compiler must instrument the various functions' entry and exit points.
 
 Make sure to build your binary with the following `CFLAGS`:
 
@@ -28,8 +28,8 @@ This component depends on two events produced by LTTng-ust:
 * `lttng_ust_cyg_profile_fast:func_exit`
 
 LTTng provides the `liblttng-ust-cygprofile-fast.so` shared object utility
-in order to trace the produce these events on the function entries/exits.
-For more information, see LTTng official documentation which has a
+in order to trace these events on the functions' entry and exit.
+For more information, see the LTTng official documentation which has a
 [dedicated section](https://lttng.org/docs/v2.10/#doc-liblttng-ust-cyg-profile)
 on this mechanism.
 
@@ -58,11 +58,12 @@ $ lttng destroy
 ### Displaying a callstack
 
 In order for `babeltrace` to see our new component, we need to make it aware
-of the path in which it is saved. The `--plugin-path` is used to add a path
-to babeltrace's search path.
+of the path in which it is saved. The `--plugin-path` option is used to add a
+path to babeltrace's search path.
 
 Let's list the plugins found by `babeltrace` and make sure we see our demo
 component.
+
 `$ babeltrace list-plugins --plugin-path ~/EfficiOS/confs/Tracing.Summit.2017/`
 
 [![asciicast](https://asciinema.org/a/7KOvSQGJuoUWkGKtfTzrLozKs.png)](https://asciinema.org/a/7KOvSQGJuoUWkGKtfTzrLozKs)
